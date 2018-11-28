@@ -8,16 +8,16 @@
   
   
   <ion-content padding>
-      <form (ngSubmit)="saveChanges(); myNgForm.resetForm()" #myNgForm="ngForm">
+      <form #askForm="ngForm" (ngSubmit)="saveChanges(); myNgForm.resetForm()" #myNgForm="ngForm">
       <ion-list>
         <ion-item>
           <ion-label floating>Query (in one line)</ion-label>
-          <ion-input type="text" [(ngModel)]="query.question" name="question"></ion-input>
+          <ion-input type="text" [(ngModel)]="query.question" name="question" required></ion-input>
         </ion-item>
       
         <ion-item>
           <ion-label floating>Explain your problem</ion-label>
-          <ion-input type="text" [(ngModel)]="query.explanation" name="explanation"></ion-input>
+          <ion-textarea type="text" [(ngModel)]="query.explanation" name="explanation" required></ion-textarea>
         </ion-item>
       </ion-list>
   
@@ -40,7 +40,7 @@
         </ion-item>
       </ion-list>
   
-      <button ion-button block round type="submit">Ask</button>
+      <button [disabled]="!askForm.form.valid" ion-button block round type="submit">Ask</button>
     </form>
   </ion-content>
   

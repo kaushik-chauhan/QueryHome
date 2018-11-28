@@ -100,7 +100,12 @@ export class HomePage {
 
   saveChanges()
   {
-    this.totalTag = this.techSelect.concat(this.lmSelect);
+    if(this.techSelect == null)
+      this.totalTag = this.lmSelect;
+    else if(this.lmSelect == null)
+      this.totalTag = this.techSelect;
+    else
+      this.totalTag = this.techSelect.concat(this.lmSelect);
     console.log("tt",this.totalTag);
     this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
     .child("tags").set(this.totalTag);

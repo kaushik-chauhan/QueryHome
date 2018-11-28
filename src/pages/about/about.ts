@@ -62,20 +62,26 @@ export class AboutPage {
       const toast = this.toastCtrl.create({
         message: 'Please select atleast one business tag',
         duration: 2000,
-        position: 'middle'
+        position: 'bottom'
       });
       toast.present();
     }
     else {
-      this.totalTag = this.techSelect.concat(this.lmSelect);
+      if(this.techSelect == null)
+        this.totalTag = this.lmSelect;
+      else if(this.lmSelect == null)
+        this.totalTag = this.techSelect;
+      else
+        this.totalTag = this.techSelect.concat(this.lmSelect);
       var ts = new Date().toISOString();
       ts = ts.replace(/[^0-9]/g, "");
       this.mData.child("questions").child(ts).child("tags").set(this.totalTag);
-      this.mData.child("questions").child(ts).child("asked_by").child('question').set(this.query.question);
-      this.mData.child("questions").child(ts).child("asked_by").child('explanation').set(this.query.explanation);
-      this.mData.child("questions").child(ts).child("asked_by").child('last_timestamp').set(ts);
-      this.mData.child("questions").child(ts).child("asked_by").child('flag_answered').set('false');
+      this.mData.child("questions").child(ts).child('question').set(this.query.question);
+      this.mData.child("questions").child(ts).child('explanation').set(this.query.explanation);
+      this.mData.child("questions").child(ts).child('last_timestamp').set(ts);
+      this.mData.child("questions").child(ts).child('flag_answered').set('false');
       this.mData.child("questions").child(ts).child("asked_by").child('user').set(this.afAuth.auth.currentUser.uid);
+      this.mData.child("questions").child(ts).child("asked_by").child('timestamp').set(ts);
       this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("asked").push(ts);
       this.presentToast();
     }
