@@ -11,6 +11,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
+import { AskPage } from '../pages/ask/ask';
 
 import {GoogleLoginComponent} from '../components/google-login/google-login';
 
@@ -34,7 +35,8 @@ const firebaseConfig = {
     HomePage,
     TabsPage,
     LoginPage,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    AskPage
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ const firebaseConfig = {
     HomePage,
     TabsPage,
     LoginPage,
+    AskPage,
     GoogleLoginComponent
   ],
   providers: [

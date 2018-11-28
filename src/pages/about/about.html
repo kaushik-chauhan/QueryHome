@@ -1,11 +1,46 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ask
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-<p>You can Ask any Questions here</p>
-</ion-content>
+    <ion-navbar>
+      <ion-title>Ask</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <form (ngSubmit)="saveChanges(); myNgForm.resetForm()" #myNgForm="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Query (in one line)</ion-label>
+          <ion-input type="text" [(ngModel)]="query.question" name="question"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label floating>Explain your problem</ion-label>
+          <ion-input type="text" [(ngModel)]="query.explanation" name="explanation"></ion-input>
+        </ion-item>
+      </ion-list>
+  
+      <ion-list>
+        <ion-list-header>View and Edit your Tags here.</ion-list-header>
+        
+        <ion-item>
+          <ion-label>Technology</ion-label>
+          <ion-select [(ngModel)]="techSelect" multiple="true" (ionChange)="enable()" name="Technology">
+            <ion-option *ngFor = "let item of tech" [value]="item.id">{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      
+      
+        <ion-item>
+          <ion-label>Business</ion-label>
+          <ion-select [(ngModel)]="lmSelect" multiple="true" (ionChange)="enable()" name="Business">
+            <ion-option *ngFor = "let item of lm" [value]="item.id">{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+  
+      <button ion-button block round *ngIf="flag" type="submit">Ask</button>
+    </form>
+  </ion-content>
+  

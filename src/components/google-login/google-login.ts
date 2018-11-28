@@ -43,9 +43,7 @@ export class GoogleLoginComponent {
     //if(this.user != null){
      //this.Uname = this.afAuth.auth.currentUser.displayName;
     //}
-
   }
-
   
   goAnOtherPage() {
     this.navCtrl.push(TabsPage);
@@ -80,9 +78,10 @@ export class GoogleLoginComponent {
                 name : this.afAuth.auth.currentUser.displayName
             };
             
-            this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("name").set(this.afAuth.auth.currentUser.displayName)
+            this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("name").set(this.afAuth.auth.currentUser.displayName);
            // this.db.list('Users').push(this.site);
           }
+          this.goAnOtherPage();
         });
   
     } catch(err) {
@@ -107,6 +106,7 @@ export class GoogleLoginComponent {
           this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("name").set(this.afAuth.auth.currentUser.displayName)
          // this.db.list('Users').push(this.site);
         }
+        this.goAnOtherPage();
       });
   
     } catch(err) {
