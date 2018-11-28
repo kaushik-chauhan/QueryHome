@@ -38,7 +38,6 @@ export class GoogleLoginComponent {
     private gplus: GooglePlus,
     public loadingCtrl: LoadingController,
     private platform: Platform) {
-    console.log('Hello GoogleLoginComponent Component');
     this.text = 'Hello World';
     this.user = this.afAuth.authState;
     //if(this.user != null){
