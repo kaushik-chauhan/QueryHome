@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
-import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DatabaseReference } from '@angular/fire/database/interfaces';
 import { NavController } from 'ionic-angular';
@@ -48,7 +47,6 @@ export class ContactPage {
       {
         this.mData.child("questions").child(this.asked[i.toString()]).once("value").then((snapshot)=>{
           this.questions.push(snapshot.val());
-          console.log(this.questions)
         });
       }
     });

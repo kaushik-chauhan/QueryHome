@@ -9,5 +9,9 @@
 <ion-content>
   <ion-list>
     <ion-list-header>Questions asked</ion-list-header>
+    <ion-item *ngFor="let i of questions">
+      <h2>{{i["question"]}}</h2>
+      <p>{{i["explanation"]}}</p>
+    </ion-item>
   </ion-list>
 </ion-content>
