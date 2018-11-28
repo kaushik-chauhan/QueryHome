@@ -25,7 +25,7 @@ import { DatabaseReference } from '@angular/fire/database/interfaces';
 })
 export class GoogleLoginComponent {
 
-  user: Observable<firebase.User>;
+  public user: Observable<firebase.User>;
   us : any;
   mData : DatabaseReference = firebase.database().ref();
   text: string;
@@ -80,7 +80,7 @@ export class GoogleLoginComponent {
                 name : this.afAuth.auth.currentUser.displayName
             };
             
-            this.mData.child("Users").child(this.afAuth.auth.currentUser.uid).set(this.afAuth.auth.currentUser.displayName)
+            this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("name").set(this.afAuth.auth.currentUser.displayName)
            // this.db.list('Users').push(this.site);
           }
         });
@@ -104,7 +104,7 @@ export class GoogleLoginComponent {
               name : this.afAuth.auth.currentUser.displayName
           };
           
-          this.mData.child("Users").child(this.afAuth.auth.currentUser.uid).set(this.afAuth.auth.currentUser.displayName)
+          this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("name").set(this.afAuth.auth.currentUser.displayName)
          // this.db.list('Users').push(this.site);
         }
       });

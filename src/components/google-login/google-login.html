@@ -7,7 +7,7 @@
   </button>
 
       <div *ngIf="user.uid">
-        You are already logged in with UID: {{user.displayName}}
+        <h2> Welcome {{user.displayName}} </h2>
         
         <ion-buttons>
             <button ion-button (click)="goAnOtherPage()">Home </button>
@@ -16,7 +16,6 @@
         <button ion-button (tap) = "signOut()">
           Signout
         </button>
-        {{testing}}
       </div>
 
      
