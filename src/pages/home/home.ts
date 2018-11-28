@@ -53,7 +53,7 @@ export class HomePage {
 
   ngOnInit()
   {
-    this.mData.child("Users").child(this.afAuth.auth.currentUser.uid)
+    this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
     .child("tags").once("value").then((snapshot)=>{
     this.initTagId = snapshot.val();
     });
@@ -98,7 +98,7 @@ export class HomePage {
   {
     this.totalTag = this.techSelect.concat(this.lmSelect);
     console.log("tt",this.totalTag);
-    this.mData.child("Users").child(this.afAuth.auth.currentUser.uid)
+    this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
     .child("tags").set(this.totalTag);
     this.flag=false;
     this.presentToast();
@@ -109,7 +109,7 @@ export class HomePage {
     const toast = this.toastCtrl.create({
       message: 'Tags updated successfully',
       duration: 2000,
-      position: 'middle'
+      position: 'bottom'
     });
     toast.present();
   }

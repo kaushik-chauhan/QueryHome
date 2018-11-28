@@ -8,7 +8,7 @@
   
   
   <ion-content padding>
-    <form (ngSubmit)="saveChanges(); myNgForm.resetForm()" #myNgForm="ngForm">
+      <form (ngSubmit)="saveChanges(); myNgForm.resetForm()" #myNgForm="ngForm">
       <ion-list>
         <ion-item>
           <ion-label floating>Query (in one line)</ion-label>
@@ -22,11 +22,11 @@
       </ion-list>
   
       <ion-list>
-        <ion-list-header>View and Edit your Tags here.</ion-list-header>
+        <ion-list-header>Select appropriate tags</ion-list-header>
         
         <ion-item>
           <ion-label>Technology</ion-label>
-          <ion-select [(ngModel)]="techSelect" multiple="true" (ionChange)="enable()" name="Technology">
+          <ion-select [(ngModel)]="techSelect" multiple="true" name="Technology">
             <ion-option *ngFor = "let item of tech" [value]="item.id">{{item.name}}</ion-option>
           </ion-select>
         </ion-item>
@@ -34,13 +34,13 @@
       
         <ion-item>
           <ion-label>Business</ion-label>
-          <ion-select [(ngModel)]="lmSelect" multiple="true" (ionChange)="enable()" name="Business">
+          <ion-select [(ngModel)]="lmSelect" multiple="true" name="Business">
             <ion-option *ngFor = "let item of lm" [value]="item.id">{{item.name}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
   
-      <button ion-button block round *ngIf="flag" type="submit">Ask</button>
+      <button ion-button block round type="submit">Ask</button>
     </form>
   </ion-content>
   

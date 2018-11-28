@@ -26,7 +26,6 @@ export class AboutPage {
   initTag:any = [];
   initTagId:any = [];
   lmSelect:any = [];
-  flag:boolean = false;
   query = {
     question: null,
     explanation: null
@@ -56,11 +55,6 @@ export class AboutPage {
     ]; 
   }
 
-  enable()
-  {
-    this.flag=true;
-  }
-
   saveChanges()
   {
     if(this.lmSelect == null || this.lmSelect.length == 0)
@@ -73,11 +67,17 @@ export class AboutPage {
       toast.present();
     }
     else {
-    this.totalTag = this.techSelect.concat(this.lmSelect);
-    console.log('tags', this.totalTag);
-    console.log('query',this.query);
-    this.flag=false;
-    this.presentToast();
+      this.totalTag = this.techSelect.concat(this.lmSelect);
+      var ts = new Date().toISOString();
+      ts = ts.replace(/[^0-9]/g, "");
+      this.mData.child("questions").child(ts).child("tags").set(this.totalTag);
+      this.mData.child("questions").child(ts).child("asked_by").child('question').set(this.query.question);
+      this.mData.child("questions").child(ts).child("asked_by").child('explanation').set(this.query.explanation);
+      this.mData.child("questions").child(ts).child("asked_by").child('last_timestamp').set(ts);
+      this.mData.child("questions").child(ts).child("asked_by").child('flag_answered').set('false');
+      this.mData.child("questions").child(ts).child("asked_by").child('user').set(this.afAuth.auth.currentUser.uid);
+      this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("asked").push(ts);
+      this.presentToast();
     }
 
   }
@@ -91,10 +91,6 @@ export class AboutPage {
     });
     toast.present();
     this.navCtrl.push(HomePage);
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AskPage');
   }
 
 }

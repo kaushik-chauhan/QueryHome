@@ -11,7 +11,6 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
-import { AskPage } from '../pages/ask/ask';
 
 import {GoogleLoginComponent} from '../components/google-login/google-login';
 
@@ -19,12 +18,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCL26ks_imNn122bro6aU7e_wkGI1aG58Y",
-  authDomain: "queryhome-dd6fb.firebaseapp.com",
-  databaseURL: "https://queryhome-dd6fb.firebaseio.com",
-  projectId: "queryhome-dd6fb",
-  storageBucket: "queryhome-dd6fb.appspot.com",
-  messagingSenderId: "314946282716"
+  apiKey: "AIzaSyAzXJj9P4jtNwLaLtNtAfUOnfyBlHyFaT4",
+  authDomain: "test-app-base.firebaseapp.com",
+  databaseURL: "https://test-app-base.firebaseio.com",
+  projectId: "test-app-base",
+  storageBucket: "test-app-base.appspot.com",
+  messagingSenderId: "1006688015933"
 }
 
 @NgModule({
@@ -35,8 +34,7 @@ const firebaseConfig = {
     HomePage,
     TabsPage,
     LoginPage,
-    GoogleLoginComponent,
-    AskPage
+    GoogleLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +50,6 @@ const firebaseConfig = {
     HomePage,
     TabsPage,
     LoginPage,
-    AskPage,
     GoogleLoginComponent
   ],
   providers: [
