@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs/Observable';
 
 import { GooglePlus } from '@ionic-native/google-plus';
-import { Platform } from 'ionic-angular';
+import { Platform, LoadingController } from 'ionic-angular';
 import {TabsPage} from '../../pages/tabs/tabs'
 import { NavController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
@@ -36,6 +36,7 @@ export class GoogleLoginComponent {
   constructor(private afAuth: AngularFireAuth,
     public navCtrl: NavController, 
     private gplus: GooglePlus,
+    public loadingCtrl: LoadingController,
     private platform: Platform) {
     console.log('Hello GoogleLoginComponent Component');
     this.text = 'Hello World';
@@ -43,6 +44,21 @@ export class GoogleLoginComponent {
     //if(this.user != null){
      //this.Uname = this.afAuth.auth.currentUser.displayName;
     //}
+  }
+
+  ngOnInit(){
+    
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+  
+    loading.present()
+    setTimeout(()=>{
+    if(this.afAuth.auth.currentUser != null)
+    this.goAnOtherPage();
+    loading.dismiss();
+    },3000);
+    
   }
   
   goAnOtherPage() {

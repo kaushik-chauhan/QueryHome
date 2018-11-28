@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
-import { AskPage } from '../ask/ask';
 
 @Component({
   templateUrl: 'tabs.html'

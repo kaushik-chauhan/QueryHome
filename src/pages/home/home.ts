@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import {GoogleLoginComponent} from '../../components/google-login/google-login';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DatabaseReference } from '@angular/fire/database/interfaces';
 import { ToastController } from 'ionic-angular';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { LoginPage } from '../login/login';
 
 
 @Component({
@@ -28,7 +30,9 @@ export class HomePage {
   flag:boolean = false;
 
   constructor(public navCtrl: NavController,private afAuth: AngularFireAuth,
-              public toastCtrl: ToastController){
+              public toastCtrl: ToastController,
+              private platform: Platform,
+              private gplus: GooglePlus){
     this.dname = this.afAuth.auth.currentUser.displayName;
     this.tech = [
       {id:"5", name: ".NET"},
@@ -112,5 +116,19 @@ export class HomePage {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  signOut() {
+    this.afAuth.auth.signOut();
+    if(this.platform.is('cordova')){
+      this.gplus.logout();
+    }
+    const toast = this.toastCtrl.create({
+      message: 'You are signed out',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+    this.navCtrl.push(LoginPage);
   }
 }
