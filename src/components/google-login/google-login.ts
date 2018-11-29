@@ -61,7 +61,7 @@ export class GoogleLoginComponent {
   }
   
   goAnOtherPage() {
-    this.navCtrl.push(TabsPage);
+    this.navCtrl.setRoot(TabsPage);
   }
 
   googleLogin() {
@@ -128,13 +128,6 @@ export class GoogleLoginComponent {
       console.log(err)
     }
   
-  }
-
-  signOut() {
-    this.afAuth.auth.signOut();
-    if(this.platform.is('cordova')){
-      this.gplus.logout();
-    }
   }
 
 }

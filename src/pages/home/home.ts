@@ -18,9 +18,12 @@ export class HomePage {
   public user: Observable<firebase.User>;
   mData : DatabaseReference = firebase.database().ref();
   public dname:string;
-  tech:any = [];
-  buss:any = [];
-  lm:any = [];
+  tech:any;
+  buss:any;
+  lm:any;
+  tech_disp:any = [];
+  buss_disp:any = [];
+  lm_disp:any = [];
   techSelect:any = [] ;
   bussSelect:any = [];
   totalTag:any = [];
@@ -34,7 +37,26 @@ export class HomePage {
               private platform: Platform,
               private gplus: GooglePlus){
     this.dname = this.afAuth.auth.currentUser.displayName;
-    this.tech = [
+    this.tech = {
+      "5": ".NET",
+      "6": "Angular",
+      "7": "Couchbase",
+      "8": "SQL Server",
+      "9": "Elastic Search",
+      "10": "Docker",
+      "11": "RabbitMQ"
+    };
+    this.lm = {
+      "1_a": "Order Management",
+      "1_b": "Route Management",
+      "1_c": "Account Management",
+      "1_d": "Claims Management",
+      "1_e": "Zone Management",
+      "1_f": "Location Management",
+      "1_g": "User Management",
+      "1_h": "Facility Management"
+    };
+    this.tech_disp = [
       {id:"5", name: ".NET"},
       {id:"6", name: "Angular"},
       {id:"7", name: "Couchbase"},
@@ -43,16 +65,17 @@ export class HomePage {
       {id:"10", name: "Docker"},
       {id:"11", name: "RabbitMQ"},
     ];
-    this.lm = [
+    this.lm_disp = [
       {id:"1_a", name: "Order Management"},
       {id:"1_b", name: "Route Management"},
       {id:"1_c", name: "Account Management"},
       {id:"1_d", name: "Claims Management"},
-      {id:"1_e", name: " Zone Management"},
-      {id:"1_f", name: " Location Management"},
-      {id:"1_g", name: " User Management"},
-      {id:"1_h", name: " Facility Management"}
-    ] 
+      {id:"1_e", name: "Zone Management"},
+      {id:"1_f", name: "Location Management"},
+      {id:"1_g", name: "User Management"},
+      {id:"1_h", name: "Facility Management"},
+      {id:"4", name:"General"}
+    ]; 
   }
 
   ngOnInit()
@@ -66,33 +89,21 @@ export class HomePage {
     {
       this.techSelect = [];
       this.lmSelect = [];
-      if(this.initTagId != null)
+      if (this.initTagId != null)
       {
-        for(let i=0;i<this.initTagId.length;i++)
-        {
-          for(let j=0;j<this.tech.length;j++)
-          {
-            if(this.initTagId[i] == this.tech[j].id)
-            {
-              this.techSelect.push(this.tech[j].id.toString());
+        for (let i=0;i<this.initTagId.length;i++) {
+            if (isNaN(this.initTagId[i])) {
+                if (this.lm[this.initTagId[i]] != null)
+                    this.lmSelect.push(this.initTagId[i]);
+            } else {
+                if (this.tech[this.initTagId[i]] != null)
+                    this.techSelect.push(this.initTagId[i]);
             }
-          }
-        }
-
-        for(let i=0;i<this.initTagId.length;i++)
-        {
-          for(let j=0;j<this.lm.length;j++)
-          {
-            if(this.initTagId[i] == this.lm[j].id)
-            {
-              this.lmSelect.push(this.lm[j].id);
-            }
-          }
         }
       }
     },500);
   }
-
+  
   enable()
   {
     this.flag=true;
@@ -106,10 +117,28 @@ export class HomePage {
       this.totalTag = this.techSelect;
     else
       this.totalTag = this.techSelect.concat(this.lmSelect);
-    console.log("tt",this.totalTag);
+    
     this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
     .child("tags").set(this.totalTag);
     this.flag=false;
+
+    
+    for (var i in this.totalTag)
+    {
+        if (!this.initTagId.includes(this.totalTag[i]))
+        {
+            this.mData.child("tag_user").child(this.totalTag[i]).child(this.afAuth.auth.currentUser.uid).set(true);
+        }
+    }
+
+    for (var i in this.initTagId)
+    {
+        if (!this.totalTag.includes(this.initTagId[i]))
+        {
+            this.mData.child("tag_user").child(this.initTagId[i]).child(this.afAuth.auth.currentUser.uid).set(null);
+        }
+    }
+    this.initTagId = this.totalTag;
     this.presentToast();
   }
 
@@ -134,6 +163,6 @@ export class HomePage {
       position: 'bottom'
     });
     toast.present();
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.setRoot(LoginPage);
   }
 }
