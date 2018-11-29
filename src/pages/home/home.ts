@@ -91,14 +91,20 @@ export class HomePage {
       if (this.initTagId != null)
       {
         for (let i=0;i<this.initTagId.length;i++) {
-            if (isNaN(this.initTagId[i])) {
-                if (this.lm[this.initTagId[i]] != null)
-                    this.lmSelect.push(this.initTagId[i]);
-            } else {
-                if (this.tech[this.initTagId[i]] != null)
-                    this.techSelect.push(this.initTagId[i]);
-            }
+          if (isNaN(this.initTagId[i])) {
+            if (this.lm[this.initTagId[i]] != null)
+              this.lmSelect.push(this.initTagId[i].toString());
+          } else {
+              if (this.tech[this.initTagId[i]] != null)
+                this.techSelect.push(this.initTagId[i].toString());
+          }
         }
+        if(this.techSelect == null)
+          this.initTagId = this.lmSelect;
+        else if(this.lmSelect == null)
+          this.initTagId = this.techSelect;
+        else
+          this.initTagId = this.techSelect.concat(this.lmSelect);
       }
     },500);
   }
@@ -116,27 +122,35 @@ export class HomePage {
       this.totalTag = this.techSelect;
     else
       this.totalTag = this.techSelect.concat(this.lmSelect);
-    
-    this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
-    .child("tags").set(this.totalTag);
-    this.flag=false;
-
-    
+          
     for (var i in this.totalTag)
     {
-        if (!(this.initTag != null && this.initTagId.includes(this.totalTag[i])))
-        {
-            this.mData.child("tag_user").child(this.totalTag[i]).child(this.afAuth.auth.currentUser.uid).set(true);
-        }
+      if (this.initTagId == null)
+      {
+        this.mData.child("tag_user").child(this.totalTag[i]).child(this.afAuth.auth.currentUser.uid).set(true);
+      }
+      else if (!(this.initTagId.includes(this.totalTag[i])))
+      {
+        this.mData.child("tag_user").child(this.totalTag[i]).child(this.afAuth.auth.currentUser.uid).set(true);
+      }
     }
 
     for (var i in this.initTagId)
     {
-        if (!(this.totalTag != null && this.totalTag.includes(this.initTagId[i])))
-        {
-            this.mData.child("tag_user").child(this.initTagId[i]).child(this.afAuth.auth.currentUser.uid).set(null);
-        }
+      if (this.totalTag == null)
+      {
+        this.mData.child("tag_user").child(this.initTagId[i]).child(this.afAuth.auth.currentUser.uid).set(null);
+      }
+      else if (!(this.totalTag.includes(this.initTagId[i])))
+      {
+        this.mData.child("tag_user").child(this.initTagId[i]).child(this.afAuth.auth.currentUser.uid).set(null);
+      }
     }
+
+    this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
+    .child("tags").set(this.totalTag);
+    this.flag=false;
+
     this.initTagId = this.totalTag;
     this.presentToast();
   }

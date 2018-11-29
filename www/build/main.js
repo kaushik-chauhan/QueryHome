@@ -139,13 +139,19 @@ var HomePage = /** @class */ (function () {
                 for (var i = 0; i < _this.initTagId.length; i++) {
                     if (isNaN(_this.initTagId[i])) {
                         if (_this.lm[_this.initTagId[i]] != null)
-                            _this.lmSelect.push(_this.initTagId[i]);
+                            _this.lmSelect.push(_this.initTagId[i].toString());
                     }
                     else {
                         if (_this.tech[_this.initTagId[i]] != null)
-                            _this.techSelect.push(_this.initTagId[i]);
+                            _this.techSelect.push(_this.initTagId[i].toString());
                     }
                 }
+                if (_this.techSelect == null)
+                    _this.initTagId = _this.lmSelect;
+                else if (_this.lmSelect == null)
+                    _this.initTagId = _this.techSelect;
+                else
+                    _this.initTagId = _this.techSelect.concat(_this.lmSelect);
             }
         }, 500);
     };
@@ -159,19 +165,25 @@ var HomePage = /** @class */ (function () {
             this.totalTag = this.techSelect;
         else
             this.totalTag = this.techSelect.concat(this.lmSelect);
-        this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
-            .child("tags").set(this.totalTag);
-        this.flag = false;
         for (var i in this.totalTag) {
-            if (!(this.initTag != null && this.initTagId.includes(this.totalTag[i]))) {
+            if (this.initTagId == null) {
+                this.mData.child("tag_user").child(this.totalTag[i]).child(this.afAuth.auth.currentUser.uid).set(true);
+            }
+            else if (!(this.initTagId.includes(this.totalTag[i]))) {
                 this.mData.child("tag_user").child(this.totalTag[i]).child(this.afAuth.auth.currentUser.uid).set(true);
             }
         }
         for (var i in this.initTagId) {
-            if (!(this.totalTag != null && this.totalTag.includes(this.initTagId[i]))) {
+            if (this.totalTag == null) {
+                this.mData.child("tag_user").child(this.initTagId[i]).child(this.afAuth.auth.currentUser.uid).set(null);
+            }
+            else if (!(this.totalTag.includes(this.initTagId[i]))) {
                 this.mData.child("tag_user").child(this.initTagId[i]).child(this.afAuth.auth.currentUser.uid).set(null);
             }
         }
+        this.mData.child("users").child(this.afAuth.auth.currentUser.uid)
+            .child("tags").set(this.totalTag);
+        this.flag = false;
         this.initTagId = this.totalTag;
         this.presentToast();
     };
