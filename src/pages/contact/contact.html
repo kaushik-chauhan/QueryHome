@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Q/A
+      Q&A
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,9 +9,14 @@
 <ion-content>
   <ion-list>
     <ion-list-header>Questions asked</ion-list-header>
-    <ion-item *ngFor="let i of questions">
+    <ion-item *ngIf="questions == null || questions.length == 0"><p>No queries posted yet.</p></ion-item>
+    <ion-item *ngFor="let i of questions" (tap)="redirect(i);">
       <h2>{{i["question"]}}</h2>
       <p>{{i["explanation"]}}</p>
     </ion-item>
   </ion-list>
+
+  <ion-fab>
+    <button ion-fab bottom right edge class="fab_ask" (tap)="ask();"><ion-icon name="text"></ion-icon></button>
+  </ion-fab>
 </ion-content>

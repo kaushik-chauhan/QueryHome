@@ -3,7 +3,7 @@
       <ion-title>Profile</ion-title>
     <ion-buttons end>
       <button ion-button icon-only name="logout" (tap) = "signOut()">
-        <ion-icon name="log-out"></ion-icon>
+        <ion-icon name="md-log-out"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -30,5 +30,9 @@
   </ion-item>
 
   <button ion-button block round *ngIf="flag" (click)="saveChanges()">Save Changes</button>
+
+  <ion-fab>
+    <button ion-fab bottom right edge class="fab_ask" (tap)="ask();"><ion-icon name="text"></ion-icon></button>
+  </ion-fab>
 
 </ion-content>

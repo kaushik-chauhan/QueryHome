@@ -1,0 +1,60 @@
+<!--
+  Generated template for the QuestionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Query</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding *ngIf="question">
+  <ion-card>
+    <ion-card-header class="question">
+      {{question.question}}
+    </ion-card-header>
+    <ion-card-content>
+      {{question.explanation}}
+    </ion-card-content>
+    <ion-row class="cardfooter">
+      <ion-col>
+        <p class="user_info_footer">{{question.asked_by.name}}&emsp;</p>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <div *ngIf="answers != null || answers.length > 0">
+    <ion-card *ngFor="let i of answers">
+      <ion-card-content>
+        <p>{{i.answer}}</p>
+        <p class="user_info_footer">{{i.name}}&emsp;</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+<!-- <div *ngIf="user">
+  <div  *ngIf="question.asked_by.user != user.uid"> -->
+    <ion-footer>
+      <form (ngSubmit)="send(); replyForm.resetForm()" #replyForm="ngForm">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-10>
+              <ion-input placeholder="Answer here" [(ngModel)]="answer.content" name="answer" clearInput></ion-input>
+            </ion-col>
+            <ion-col col-2>
+              <ion-buttons end>
+                <button ion-button icon-only name="send" type="submit">
+                  <ion-icon name="send"></ion-icon>
+                </button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-footer>
+  <!-- </div>
+</div> -->

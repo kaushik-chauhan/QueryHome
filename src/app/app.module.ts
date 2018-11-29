@@ -11,11 +11,13 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
+import { QuestionPage } from '../pages/question/question';
 
 import {GoogleLoginComponent} from '../components/google-login/google-login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ReceivedPage } from '../pages/received/received';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAzXJj9P4jtNwLaLtNtAfUOnfyBlHyFaT4",
@@ -34,6 +36,8 @@ const firebaseConfig = {
     HomePage,
     TabsPage,
     LoginPage,
+    QuestionPage,
+    ReceivedPage,
     GoogleLoginComponent
   ],
   imports: [
@@ -50,6 +54,8 @@ const firebaseConfig = {
     HomePage,
     TabsPage,
     LoginPage,
+    QuestionPage,
+    ReceivedPage,
     GoogleLoginComponent
   ],
   providers: [

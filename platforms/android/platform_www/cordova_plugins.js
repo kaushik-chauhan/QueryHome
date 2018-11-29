@@ -58,7 +58,9 @@ module.exports.metadata =
   "cordova-plugin-splashscreen": "5.0.2",
   "cordova-plugin-ionic-webview": "2.2.5",
   "cordova-plugin-ionic-keyboard": "2.1.3",
-  "cordova-plugin-googleplus": "5.3.2"
+  "cordova-plugin-googleplus": "5.3.2",
+  "cordova-plugin-crosswalk-webview": "2.4.0",
+  "cordova-android-support-gradle-release": "2.0.1"
 };
 // BOTTOM OF METADATA
 });

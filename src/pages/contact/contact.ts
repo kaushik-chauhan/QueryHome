@@ -3,6 +3,8 @@ import * as firebase from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DatabaseReference } from '@angular/fire/database/interfaces';
 import { NavController } from 'ionic-angular';
+import { QuestionPage } from '../question/question';
+import { AboutPage } from '../about/about';
 
 @Component({
   selector: 'page-contact',
@@ -39,7 +41,8 @@ export class ContactPage {
     ]; 
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.questions = [];
     this.user = this.afAuth.auth.currentUser;
     this.mData.child("users").child(this.user.uid).child("asked").once("value").then((snapshot)=>{
       this.asked = snapshot.val();
@@ -50,5 +53,15 @@ export class ContactPage {
         });
       }
     });
+  }
+
+  redirect(qid) {
+    this.navCtrl.push(QuestionPage,{
+      qid: qid,
+    });
+  }
+
+  ask() {
+    this.navCtrl.push(AboutPage);
   }
 }

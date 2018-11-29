@@ -8,7 +8,7 @@
   
   
   <ion-content padding>
-      <form #askForm="ngForm" (ngSubmit)="saveChanges(); myNgForm.resetForm()" #myNgForm="ngForm">
+      <form #askForm="ngForm" (ngSubmit)="saveChanges(); askForm.resetForm()">
       <ion-list>
         <ion-item>
           <ion-label floating>Query (in one line)</ion-label>

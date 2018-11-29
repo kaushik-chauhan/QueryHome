@@ -7,6 +7,7 @@ import { DatabaseReference } from '@angular/fire/database/interfaces';
 import { ToastController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-about',
@@ -76,6 +77,7 @@ export class AboutPage {
         this.totalTag = this.techSelect.concat(this.lmSelect);
       var ts = new Date().toISOString();
       ts = ts.replace(/[^0-9]/g, "");
+      this.mData.child("questions").child(ts).child("id").set(ts);
       this.mData.child("questions").child(ts).child("tags").set(this.totalTag);
       this.mData.child("questions").child(ts).child('question').set(this.query.question);
       this.mData.child("questions").child(ts).child('explanation').set(this.query.explanation);
@@ -83,6 +85,7 @@ export class AboutPage {
       this.mData.child("questions").child(ts).child('flag_answered').set('false');
       this.mData.child("questions").child(ts).child("asked_by").child('user').set(this.afAuth.auth.currentUser.uid);
       this.mData.child("questions").child(ts).child("asked_by").child('timestamp').set(ts);
+      this.mData.child("questions").child(ts).child("asked_by").child('name').set(this.afAuth.auth.currentUser.displayName);
       this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("asked").push(ts);
       this.presentToast();
     }
@@ -97,7 +100,7 @@ export class AboutPage {
       position: 'bottom'
     });
     toast.present();
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(TabsPage);
   }
 
 }

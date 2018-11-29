@@ -25673,3 +25673,20 @@ ion-navbar.toolbar {
   min-height: calc(46px + constant(safe-area-inset-bottom));
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
+
+.fab_ask {
+  position: fixed;
+  bottom: 10%;
+  right: 5%;
+}
+
+page-question .user_info_footer {
+  color: #a8a8a8;
+  font-size: 0.75em;
+  text-align: right;
+}
+
+page-question .question {
+  font-weight: bold;
+  font-size: 1.2em;
+}

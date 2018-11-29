@@ -8,6 +8,7 @@ import { DatabaseReference } from '@angular/fire/database/interfaces';
 import { ToastController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LoginPage } from '../login/login';
+import { AboutPage } from '../about/about';
 
 
 @Component({
@@ -178,4 +179,8 @@ export class HomePage {
     toast.present();
     this.navCtrl.setRoot(LoginPage);
   }
+
+  ask() {
+    this.navCtrl.push(AboutPage);
+  }  
 }
