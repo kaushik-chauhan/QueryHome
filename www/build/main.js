@@ -123,8 +123,7 @@ var HomePage = /** @class */ (function () {
             { id: "1_e", name: "Zone Management" },
             { id: "1_f", name: "Location Management" },
             { id: "1_g", name: "User Management" },
-            { id: "1_h", name: "Facility Management" },
-            { id: "4", name: "General" }
+            { id: "1_h", name: "Facility Management" }
         ];
     }
     HomePage.prototype.ngOnInit = function () {
