@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { App,NavController, Platform } from 'ionic-angular';
 import {GoogleLoginComponent} from '../../components/google-login/google-login';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
@@ -36,7 +36,9 @@ export class HomePage {
   constructor(public navCtrl: NavController,private afAuth: AngularFireAuth,
               public toastCtrl: ToastController,
               private platform: Platform,
-              private gplus: GooglePlus){
+              private gplus: GooglePlus,public app:App)
+              {
+
     this.dname = this.afAuth.auth.currentUser.displayName;
     this.tech = {
       "5": ".NET",
@@ -178,6 +180,7 @@ export class HomePage {
     });
     toast.present();
     this.navCtrl.setRoot(LoginPage);
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
   ask() {

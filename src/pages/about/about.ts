@@ -27,6 +27,7 @@ export class AboutPage {
   initTag:any = [];
   initTagId:any = [];
   lmSelect:any = [];
+  send_to: any = [];
   query = {
     question: null,
     explanation: null
@@ -34,6 +35,9 @@ export class AboutPage {
 
   constructor(public navCtrl: NavController,private afAuth: AngularFireAuth,
               public toastCtrl: ToastController) {
+
+
+                
     this.dname = this.afAuth.auth.currentUser.displayName;
     this.tech = [
       {id:"5", name: ".NET"},
@@ -87,9 +91,35 @@ export class AboutPage {
       this.mData.child("questions").child(ts).child("asked_by").child('timestamp').set(ts);
       this.mData.child("questions").child(ts).child("asked_by").child('name').set(this.afAuth.auth.currentUser.displayName);
       this.mData.child("users").child(this.afAuth.auth.currentUser.uid).child("asked").push(ts);
+
+      this.send_to = [];
+      var c = 0;
+      for (var i in this.totalTag)
+      {
+        this.mData.child("tag_user").child(this.totalTag[i]).once("value").then((snapshot)=>{
+          var temp = snapshot.val();
+          for (var j in temp)
+          {
+            if (j != this.afAuth.auth.currentUser.uid)
+            this.send_to.push(j);
+          }
+          this.send_to = this.send_to.filter((el, i, a) => i === a.indexOf(el));
+          c++;
+          if (c == this.totalTag.length)
+          {
+            this.postQuestions(ts);
+          }
+        });
+      }
       this.presentToast();
     }
+  }
 
+  postQuestions(id) {
+    for ( var i in this.send_to)
+    {
+      this.mData.child("users").child(this.send_to[i]).child("received").push(id);
+    }
   }
 
   presentToast() 

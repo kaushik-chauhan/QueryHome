@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
-import { NavController } from 'ionic-angular';
+import { NavController, Tabs } from 'ionic-angular';
 import { ReceivedPage } from '../received/received';
 
 @Component({
