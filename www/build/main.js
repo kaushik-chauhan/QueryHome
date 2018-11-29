@@ -163,12 +163,12 @@ var HomePage = /** @class */ (function () {
             .child("tags").set(this.totalTag);
         this.flag = false;
         for (var i in this.totalTag) {
-            if (this.initTag == null || !this.initTagId.includes(this.totalTag[i])) {
+            if (!(this.initTag != null && this.initTagId.includes(this.totalTag[i]))) {
                 this.mData.child("tag_user").child(this.totalTag[i]).child(this.afAuth.auth.currentUser.uid).set(true);
             }
         }
         for (var i in this.initTagId) {
-            if (this.totalTag == null || !this.totalTag.includes(this.initTagId[i])) {
+            if (!(this.totalTag != null && this.totalTag.includes(this.initTagId[i]))) {
                 this.mData.child("tag_user").child(this.initTagId[i]).child(this.afAuth.auth.currentUser.uid).set(null);
             }
         }
